@@ -22,21 +22,34 @@ parent: Module 4 - OneApps
 - Clone the repositories.
 - Configure and Build the VM appliance.
 - Upload an Image and Instantiate the VM.
-    
 
-# The majority of commands in this section must be executed as root!
-
+{: .warning }
+> The majority of commands in this section must be executed as root!
 
 # Clone the repositories.
 
-
 ## 4.1.1
+
+Make sure you are connected to the Frontend Node and logged in as root!
+
+```console
+whoami
+```
+
+```console
+root
+```
 
 Clone the OneApps repository.
 
 ```console
 cd ~
 git clone https://github.com/OpenNebula/one-apps/
+```
+
+The repository must be cloned.
+
+```console
 Cloning into 'one-apps'...
 remote: Enumerating objects: 9027, done.
 remote: Counting objects: 100% (947/947), done.
@@ -45,12 +58,10 @@ remote: Total 9027 (delta 806), reused 645 (delta 635), pack-reused 8080 (from 3
 Receiving objects: 100% (9027/9027), 22.54 MiB | 41.07 MiB/s, done.
 Resolving deltas: 100% (4819/4819), done.
 ```
-
     
 ## 4.1.2
 
 Clone the repository with files.
-
 
 ```console
 export REPO='https://github.com/OpenNebula/one-training-files.git'
@@ -62,6 +73,11 @@ git sparse-checkout set OneApps
 git checkout
 cd OneApps
 ls -lh
+```
+
+You must end up with three directories.
+
+```console
 total 12K
 drwxr-xr-x 3 root root 4.0K Aug  4 10:13 appliances
 drwxr-xr-x 3 root root 4.0K Aug  4 10:13 packer
@@ -70,10 +86,9 @@ drwxr-xr-x 2 root root 4.0K Aug  4 10:13 templates
 
 # Configure and Build the VM appliance.
 
-
 ## 4.1.3
 
-Navigate to the **one-apps** git repository and create duplicate the Wordpress service.
+Navigate to the **one-apps** git repository and duplicate the Wordpress service.
 
 ```console
 cd ~/one-apps/packer
@@ -89,7 +104,6 @@ sed -i 's/Wordpress/FlaskApp/g' *.pkr.hcl
 sed -i 's/Wordpress/FlaskApp/g' gen_context
 sed -i 's/alma8.qcow2/ubuntu2204.qcow2/g' *.pkr.hcl
 ```
-
     
 ## 4.1.6
 
@@ -129,7 +143,11 @@ Run the builder from the one-apps directory and wait until the appliance .qcow2 
 ```console
 cd ~/one-apps
 make ubuntu2204 service_FlaskApp
-...
+```
+
+Wait until both images are built. 
+
+```console
 ==> Builds finished. The artifacts of successful builds are:
 --> null.null: Did not export anything. This is the null builder
 --> qemu.FlaskApp: VM files in directory: build/service_FlaskApp
@@ -154,13 +172,18 @@ Import the appliance.
 
 ```console
 oneimage create -d 1 --name 'Service FlaskApp' --path /var/tmp/one/service_FlaskApp.qcow2
-ID: 0
+```
+
+You should receive the Image's ID as an output. **Write it down as you will need it in the future!**
+
+```console
+ID: 1
 ```
 
 
 ## 4.1.9
 
-As root edit the Virtual Machine template.
+Using Vi or Nano as root edit the Virtual Machine template.
 
 ```console
 vi ~/Files/OneApps/templates/vm.tmpl
@@ -182,53 +205,90 @@ Copy the template and adjust permissions.
 ```console
 cp ~/Files/OneApps/templates/vm.tmpl /var/lib/one/
 chown oneadmin:oneadmin /var/lib/one/vm.tmpl
-sudo -i -u oneadmin
-onetemplate create vm.tmpl
-ID: 1
 ```
 
+As oneadmin create a new VM Template from the copied file.
+
+```console
+sudo -i -u oneadmin
+onetemplate create vm.tmpl
+```
+
+You should get the VM Template ID.
+
+```console
+ID: 3
+```
     
 ## 4.1.10
 
-As the **root** user perform the restart of the frr service.
+Switch to Sunstone and navigate to **Instances -> VMs**.
 
-```console
-systemctl restart frr
-```
-
-Instantate the VM
-
-```console
-onetemplate instantiate <template id>
-There are some parameters that require user input. Use the string <<EDITOR>> to launch an editor (e.g. for multi-line inputs)
-* (APP_DATABASE)
-    Press enter for default (appdb).
-* (DB_USER)
-    Press enter for default (appuser).
-* (DB_USER_PASSWORD)
-    Password:
-VM ID: 1
-```
-
+<img src="./../assets/ce-images/module4_lab1/s10.png">
 
 ## 4.1.11
 
-Test the application.
+Press **Create VM** to create a Virtual Machine. 
 
-```console
-vmip=$(onevm show <vm id> -j | jq -r '.VM.TEMPLATE.CONTEXT.ETH0_IP')
-curl $vmip:5000/create-db
-{"message":"Table 'data' created successfully"}
+<img src="./../assets/ce-images/module4_lab1/s11.png">
 
-curl $vmip:5000/insert-dummy
-{"message":"Dummy data inserted successfully"}
+## 4.1.12
 
-curl $vmip:5000/insert-dummy
-{"message":"Dummy data inserted successfully"}
+Select the **Service FlaskApp** VM Template.
 
-curl $vmip:5000/get-data
-[{"data1":"2025-08-04 10:02:30","data2":"30","id":1},{"data1":"2025-08-04 10:02:32","data2":"24","id":2}]
-```
+<img src="./../assets/ce-images/module4_lab1/s12.png">
+
+## 4.1.13
+
+Keep the **Configuration** tab as is and proceed **Next** to User inputs. 
+
+<img src="./../assets/ce-images/module4_lab1/s13.png">
+
+## 4.1.14
+
+Enter the value for **MYSQL_ROOT_PASSWORD**.
+
+<img src="./../assets/ce-images/module4_lab1/s14.png">
+
+## 4.1.15
+
+Keep the **Advanced options** as is and **Finish** the deployment.
+
+<img src="./../assets/ce-images/module4_lab1/s15.png">
+
+# Test the application.
+
+## 4.1.16
+
+Once the VM is running - copy the IP address.
+
+<img src="./../assets/ce-images/module4_lab1/s16.png">
+
+## 4.1.17
+
+Open new tab and navigate to the copied IP address with **appended port 5000**.
+
+<img src="./../assets/ce-images/module4_lab1/s17.png">
+
+## 4.1.18
+
+This page confirms that the application is running! 
+
+<img src="./../assets/ce-images/module4_lab1/s18.png">
+
+## 4.1.19
+
+Let's confirm that the database service is running as well by pressing the **Create the Trevel log** button.
+
+<img src="./../assets/ce-images/module4_lab1/s19.png">
+
+## 4.1.20
+
+This page confirms that the app can write to the database.
+
+<img src="./../assets/ce-images/module4_lab1/s20.png">
+
+# Terminate the VM in a preferred way!
     
 # Congratulations, you've completed the assignment!
 {: .no_toc}

@@ -23,129 +23,125 @@ parent: Module 2 - Advanced User Administration
 - Create ACLs for the Group.
 - Verify that the ACL is working.
 
+{: .note }
+> Note that your IDs might differ, therefore make sure to substitute all IDs with the ones you will be receiving in the output.
+
 # Create a User Group and a User
+
 
 ## 2.1.1
 
-From the Frontend Node's Command Line run the onegroup command to create a new group.
+Connect to the Frontend Node using SSH and switch to **oneadmin** user.
 
 ```console
-onegroup create --name "Template-Admins"
+ssh ubuntu@<FE>
+
+sudo -iu oneadmin
+```
+
+## 2.1.2
+
+Execute the onegroup command to create a new group.
+
+```console
+onegroup create --name "Virtual-Network-Admins"
+```
+
+In the output you must have the unique ID of a Group.
+
+```console
 ID: 100
 ```
+
+## 2.1.3
 
 Update your new group to have "User" view availiable for the basic users.
 
 ```console
 onegroup update 100
+```
 
+Make sure to set the VIEWS parameter to **user**.
+
+```console
 FIREEDGE=[
     GROUP_ADMIN_DEFAULT_VIEW="groupadmin",
     GROUP_ADMIN_VIEWS="groupadmin",
     VIEWS="user" ]
 ```
 
-Create a new user and with the **Template-Admins** as the primary group.
+## 2.1.4
+
+Create a new user and with the **Virtual-Network-Admins** as the primary group.
+
+Please don't forget to set the password. 
 
 ```console
-oneuser create tmpl_admin 'Pa$$w0rd' --group 100
+oneuser create vnet_admin '<PASSWORD>' --group 100
 ```
+
+In the output you must have the unique ID of a User.
+
+```console
+ID: 2
+```
+
 # Create ACLs for the Group
 
+## 2.1.5
 
-## 2.1.2
-
-Use the **oneacl** command to enable "Template-Admins" user group members to administer Images and Templates across the Environment. 
+Use the **oneacl** command to create an ACL that will allow **Virtual-Network-Admins** user group members to administer Networks, Virtual Network Templates and Security Groups across the Environment. 
 
 ```console
-oneacl create '@100 TEMPLATE+IMAGE/* CREATE+USE+MANAGE+ADMIN *'
-ID: 10
+oneacl create '@100 NET+VNTEMPLATE+SECGROUP/* CREATE+USE+MANAGE+ADMIN *'
 ```
 
-Export the 'Alpine Linux 3.21' from the Offical OpenNebula Marketplace.
+Make sure that there's no errors in the output before proceeding.
 
 ```console
-onemarketapp export 'Alpine Linux 3.21' 'Alpine Linux 3.21' -d 1
-IMAGE
-    ID: 0
-VMTEMPLATE
-    ID: 0
+ID: 10
 ```
 
 # Verify that the ACL is working
 
-    
-## 2.1.3
-
-Login as **tmpl_admin** and navgate to **Templates -> VM Templates**.
-
-<img src="./../assets/ca-images/module2_lab1/s3.png" class="img_80_percent">
-
-    
-## 2.1.4
-
-Locate the **Alpine Linux 3.21** VM Template and select it.
-
-<img src="./../assets/ca-images/module2_lab1/s4.png" class="img_70_percent">
-
-    
-## 2.1.5
-
-Under the **Permissions** enable **Use** permissions to **Other** users.
-
-<img src="./../assets/ca-images/module2_lab1/s5.png" class="img_70_percent">
-
-    
 ## 2.1.6
 
-Navigate to **Storage -> Images** and locate the **Alpine Linux 3.21** Image.
+Login as **vnet_admin**.
 
-<img src="./../assets/ca-images/module2_lab1/s6.png" class="img_80_percent">
+<img src="./../assets/ce-images/module2_lab1/s6.png">
 
-    
 ## 2.1.7
 
-Under the **Permissions** enable **Use** permissions to **Other** users.
+Navgate to **Networks - Virtual Networks**.
 
-<img src="./../assets/ca-images/module2_lab1/s7.png" class="img_70_percent">
+<img src="./../assets/ce-images/module2_lab1/s7.png">
 
     
-## 2.1.8 
+## 2.1.8
 
-Return to the Frontend Node's Command Line and create a new file named **new_tmpl.cnf** with the following contents.
+Select the **routable** subnet and switch to the **Address Ranges** tab.
 
-```console
-CONTEXT=[
-    NETWORK="YES",
-    SSH_PUBLIC_KEY="$USER[SSH_PUBLIC_KEY]" ]
-CPU="0.125"
-DISK=[
-    IMAGE_ID="0" ]
-GRAPHICS=[
-    LISTEN="0.0.0.0",
-    TYPE="vnc" ]
-HYPERVISOR="kvm"
-LOGO="images/logos/linux.png"
-LXD_SECURITY_PRIVILEGED="true"
-MEMORY="256"
-NIC_DEFAULT=[
-    MODEL="virtio" ]
-OS=[
-    ARCH="x86_64" ]
-SCHED_REQUIREMENTS="HYPERVISOR=kvm"
-NAME="Custom AL3.21"
-```
+<img src="./../assets/ce-images/module2_lab1/s8.png">
 
     
 ## 2.1.9
 
-Then create a new template using this file.
+Press **Add Address Range**.
 
-```console
-onetemplate create new_tmpl.cnf --user tmpl_admin
-Password:
-ID: 1
-```
+<img src="./../assets/ce-images/module2_lab1/s9.png">
+
+## 2.1.10
+
+Set the **First Address** to **172.17.2.100** and the **Size** to **20**.
+
+<img src="./../assets/ce-images/module2_lab1/s10.png">
+
+## 2.1.11
+
+You should end up having two networks.
+
+<img src="./../assets/ce-images/module2_lab1/s11.png">
+
     
 # Congratulations, you've completed the assignment!
 {: .no_toc}

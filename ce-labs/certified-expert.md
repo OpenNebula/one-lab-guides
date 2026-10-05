@@ -6,4 +6,4 @@ parent: Home
 nav_order: 2
 ---
 
-# OpenNebula 7.2 Certified Expert - Lab Guide
+# OpenNebula 7.4 Certified Expert - Lab Guide

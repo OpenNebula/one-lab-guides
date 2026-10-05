@@ -18,6 +18,4 @@ Your lab consists of 3 nodes:
 
 Frontend node contains build tools, ansible while Node 1 & Node 2 both have Frontend Node's public key in the authorized_hosts file. 
 
-# Nodes setup
-
 # Congratulations, you've completed the assignment!
