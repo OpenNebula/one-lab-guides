@@ -1,0 +1,19 @@
+title: OpenNebula Training Lab Guides
+logo: "assets/common/logo.png"
+favicon_ico: "assets/common/favicon.png"
+description: Step-by-step OpenNebula Lab instructions
+remote_theme: just-the-docs/just-the-docs
+baseurl: "/one-lab-guides"
+url: "opennebula.github.io"
+back_to_top: true
+back_to_top_text: "Up!"
+color_scheme: ons
+callouts:
+  note:
+    title: Note
+    color: purple
+  warning:
+    title: Warning
+    color: red
+mermaid:
+  version: "11.16.0
