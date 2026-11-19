@@ -181,10 +181,5 @@ Now press the edit button near by the **SSH public key** field and paste the cop
 
 Then click anywhere outside of the textbox to save changes.
 
-## 1.1.24
-
-Now sign in back as **cloud-admin**.
-
-
 # Congratulations, you've completed the assignment!
 {: .no_toc}
