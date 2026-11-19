@@ -24,9 +24,9 @@ Your lab consists of 3 nodes:
 
 | Node Name     | Username (SSH) |  Comment |
 |----------------- | -------- | --------- |
-| lab-**X**-node1     | gateway |  Frontend Node (Node 1), backup server, NFS server   | 
-| lab-**X**-node2    | gateway 	|  Node 2 |
-| lab-**X**-node3 | gateway |    Node 3 |
+| lab-**X**-node1     | ubuntu |  Frontend Node (Node 1), backup server, NFS server   | 
+| lab-**X**-node2    | ubuntu 	|  Node 2 |
+| lab-**X**-node3 | ubuntu |    Node 3 |
 
 where **X** is your unique lab number issued by the instructor.
 
@@ -49,9 +49,9 @@ Certain activities in this lab guide will require you to use CLI tools or access
 Use SSH from your personal device to the Frontend server. Don't forget to substitute X with your unique number assigned by the instructor.
 
 ```console
-ssh gateway@lab-X.opennebula.academy
+ssh ubuntu@lab-X.opennebula.academy
 
-gateway@lab-X-node1:~
+ubuntu@lab-X-node1:~
 ```
 
 # oneadmin account
