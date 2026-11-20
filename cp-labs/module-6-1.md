@@ -118,8 +118,6 @@ Scroll down to **Start script** and paste the following code.
 rc-service apache2 start
 ```
 
-<img src="./../assets/cp-images/module6_lab1/s14.png">
-
 ## 6.1.15
 
 Scroll further down and locate the **User inputs** section.
@@ -194,7 +192,6 @@ sleep 60
 export CFD=$(grep -o -e 'https.*trycloudflare.com' /var/log/cfd.log)
 onegate vm update $VMID --data CFD_URL=$CFD
 ```
-<img src="./../assets/cp-images/module6_lab1/s23.png">
 
 ## 6.1.24
 
