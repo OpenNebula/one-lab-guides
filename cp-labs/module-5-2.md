@@ -3,7 +3,7 @@ layout: default
 title: Lab 2 - Virtual Network Templates
 parent: Module 5 - Network Reservations and Network Templates
 ---
-# Module 5 - Lab 1 : Virtual Network Templates
+# Module 5 - Lab 2 : Virtual Network Templates
 {: .no_toc}
 
 ## Table of Contents

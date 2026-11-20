@@ -100,7 +100,7 @@ Make sure to confirm the intent!
 
 ## 4.1.13
 
-You must end up with both images having the **persistent** tag label.
+You must end up with both images having the **Persistent** tag label.
 
 <img src="./../assets/cp-images/module4_lab1/s13.png">
 
