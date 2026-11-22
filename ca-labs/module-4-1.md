@@ -121,13 +121,5 @@ VM_MAD                : qemu
 ...
 ```
 
-Now try the same command but with **-x** flag. 
-
-```console
-onehost show -x lab-X-node3
-```
-
-How does the output differs?
-
 # Congratulations, you've completed the assignment!
 {: .no_toc}

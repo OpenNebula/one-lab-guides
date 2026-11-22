@@ -116,7 +116,7 @@ All hosts updated successfully.
 ## 4.2.5
 
 {: .note}
-> It may take from 3 to 5 minutes to gather this metric. Feel free to proceed with the [Module 4 - Lab 4](/ca-labs/module-4-4.html) and return to this later.
+> It may take from 3 to 5 minutes to gather this metric. Feel free to proceed with the [Module 4 - Lab 4](/one-lab-guides/ca-labs/module-4-4.html) and return to this later.
 
 Run onehost show command on one of the hosts and check the **Monitoring** section and look for **MODE** parameter. It should show either PROD,TEST or DEV.
 

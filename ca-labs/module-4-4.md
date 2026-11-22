@@ -69,7 +69,7 @@ Mon Aug 10 08:14:30 2026 [Z0][HMM][I]: Successfully monitored host: 1
 ```
 
 {: .note}
-> Now return back to [Module 4 - Lab 3 - Step 4.2.5](/ca-labs/module-4-3.html#425) and verify if a custom metric is gathered.
+> Now return back to [Module 4 - Lab 3 - Step 4.2.5](/one-lab-guides/ca-labs/module-4-3.html#425) and verify if a custom metric is gathered.
 
 # Congratulations, you've completed the assignment!
 {: .no_toc}

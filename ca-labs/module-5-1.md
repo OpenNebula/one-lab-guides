@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Lab 1 - Explore Datastore Directories
+title: Lab 1 - Manage Datastores
 parent: Module 5 - Storage
 ---
-# Module 5 - Lab 1 : Explore Datastore Directories
+# Module 5 - Lab 1 : Manage Datastores
 {: .no_toc}
 
 ## Table of Contents
@@ -20,81 +20,102 @@ parent: Module 5 - Storage
 
 ## Objective(-s):
 
-- Inspect the datastores directory on every Host.
+- Add the shared System datastore.
+- Add the shared Image datastore.
+
+{: .note}
+> Please note that in this lab **NFS** is already configured and mounted across the environment, therefore you don't need to edit the /etc/fstab file, install nfs tools and mount it yourself. In the real-life scenario you will need to perform all the mentioned yourself in the automated or manual way!
+
+{: .warning}
+> Also it's worth mentioning that in this lab environment frontend serves as the NFS server, however in real-life scenario you will have a dedicated Storage system for this!
+
+# Add the shared System datastore.
 
 ## 5.1.1
 
-From the Node 1's Command Line list the contents of datastores directory.
+Navigate to **Storage -> Datastores**.
 
-```console
-ls -lah ~/datastores/
-```
-
-```console
-total 16K
-drwxr-xr-x 2 oneadmin oneadmin 4.0K Aug 10 06:31 1
-drwxrwxrwx 2 oneadmin oneadmin 4.0K Aug 10 06:57 100
-drwxrwxrwx 2 oneadmin oneadmin 4.0K Aug 10 06:57 101
-drwxr-xr-x 2 oneadmin oneadmin 4.0K Aug 10 06:31 2
-```
-
+<img src="./../assets/ca-images/module5_lab1/s1.png">
 
 ## 5.1.2
 
-Note that your output might have it other way around!
+Press the **Create Datastore** button.
 
-From the Node 1's Command Line list the Node 2's directories. 
-
-```console
-ssh lab-X-node2 'ls -lah ~/datastores/'
-```
-
-```console
-total 16K
-drwxr-x--- 4 oneadmin oneadmin 4.0K Aug 10 06:58 .
-drwxr-x--- 5 oneadmin oneadmin 4.0K Aug 10 08:39 ..
-drwxrwxrwx 2 oneadmin oneadmin 4.0K Aug 10 06:57 100
-drwxrwxrwx 2 oneadmin oneadmin 4.0K Aug 10 06:57 101
-```
-
-Perform the same on Node 3.
-
-```console
-ssh lab-X-node3 'ls -lah ~/datastores/'
-```
-
-```console
-total 16K
-drwxr-x--- 4 oneadmin oneadmin 4.0K Aug 10 06:58 .
-drwxr-x--- 5 oneadmin oneadmin 4.0K Aug 10 06:36 ..
-drwxrwxrwx 2 oneadmin oneadmin 4.0K Aug 10 06:57 100
-drwxrwxrwx 2 oneadmin oneadmin 4.0K Aug 10 06:57 101
-```
+<img src="./../assets/ca-images/module5_lab1/s2.png">
 
 ## 5.1.3
 
-Now let's inspect the fstab file.
+Let's create the System datastore first. 
 
-```console
-ssh lab-X-node3 'cat /etc/fstab'
-```
+Make sure to set the **Datastore type** to **SYSTEM** and the **Storage backend** value to **Filesystem - shared mode**. 
 
-```console
-LABEL=cloudimg-rootfs	/	 ext4	discard,commit=30,errors=remount-ro	0 1
-LABEL=BOOT	/boot	ext4	defaults	0 2
-LABEL=UEFI	/boot/efi	vfat	umask=0077	0 1
-lab-X-node1:/system /var/lib/one/datastores/100 nfs4 defaults,_netdev,nfsvers=4.2 0 0
-lab-X-node1:/images /var/lib/one/datastores/101 nfs4 defaults,_netdev,nfsvers=4.2 0 0
-```
+In this guide we will name it as **nfs-sys** while you can name it the way you wish.
 
-As you can see in the output the directories 100 & 101 both are served via NFS4 protocol.
+<img src="./../assets/ca-images/module5_lab1/s3.png">
 
-{: .warning}
-> Also it's worth mentioning that in this lab environment frontend servers as the NFS server, however in real-life scenario you will have a dedicated Storage system for this!
+## 5.1.4
 
-# Answer the question
-{: .note}
-> Why hypervisor nodes are missing directories 1 & 2 ?
+Select the **default** cluster and proceed to the next page.
+
+<img src="./../assets/ca-images/module5_lab1/s4.png">
+
+## 5.1.5
+
+There's no need to adjust any of these settings at the moment so let's keep them on defaults and proceed to the next page.
+
+<img src="./../assets/ca-images/module5_lab1/s5.png">
+
+## 5.1.6
+
+Leave the Custom Attributes page as is and finish the creation of a datastore.
+
+<img src="./../assets/ca-images/module5_lab1/s6.png">
+
+## 5.1.7
+
+Note that unlike the default system datastore - the shared one is showing the disk space metrics.
+
+<img src="./../assets/ca-images/module5_lab1/s7.png">
+
+# Add the shared Image datastore.
+
+## 5.1.8
+
+Press the **Create Datastore** one again. 
+
+<img src="./../assets/ca-images/module5_lab1/s8.png">
+
+## 5.1.9
+
+This time the **Datastore type** must be set to **IMAGE** while the backend still set to **Filesystem - shared mode**. 
+
+Name can be set to the value you like. 
+
+<img src="./../assets/ca-images/module5_lab1/s8.png">
+
+## 5.1.10 
+
+Select the **default** cluster.
+
+<img src="./../assets/ca-images/module5_lab1/s10.png">
+
+## 5.1.11
+
+In the **Compatible system datastores** select the shared system datastore you've created before. 
+
+<img src="./../assets/ca-images/module5_lab1/s11.png">
+
+## 5.1.12
+
+Finish the process.
+
+<img src="./../assets/ca-images/module5_lab1/s12.png">
+
+## 5.1.13
+
+You must end up having two shared datastores. 
+
+<img src="./../assets/ca-images/module5_lab1/s13.png">
 
 # Congratulations, you've completed the assignment!
 {: .no_toc}
