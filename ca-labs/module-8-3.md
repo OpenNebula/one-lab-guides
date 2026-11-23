@@ -98,79 +98,49 @@ Set the **DB_PASSWORD** to **appassword** and leave rest as is.
 
 ## 8.3.12
 
-On the **Storage** tab press the **Attach disk** button. 
-
-<img src="./../assets/ca-images/module8_lab3/s12.png">
-    
-## 8.3.13
-
-Select **Image** from the offered options.
-
-<img src="./../assets/ca-images/module8_lab3/s13.png">
-
-## 8.3.14
-
-Select the **virtiofs** image. In this case it is named **shared**.  
-
-<img src="./../assets/ca-images/module8_lab3/s14.png">
-
-## 8.3.15
-
-Leave the next page as is and finish the attachment. 
-
-<img src="./../assets/ca-images/module8_lab3/s15.png">
-
-## 8.3.16
-
-You must end up with two images attached.
-
-<img src="./../assets/ca-images/module8_lab3/s16.png">
-
-## 8.3.17
-
 Go to the **Placement** tab and make sure to select the **app-cluster** cluster.
 
-<img src="./../assets/ca-images/module8_lab3/s17.png">
+<img src="./../assets/ca-images/module8_lab3/s12.png">
 
 {: .note}
 > It may take some time to start the VM + there's an internal sleep time to 60 seconds in the Start script. Return back in 3 to 5 minutes to proceed with the lab.
     
-## 8.3.18
+## 8.3.13
 
 In the **Attributes** locate the **CFD_URL** attribute and copy the value.
 
-<img src="./../assets/ca-images/module8_lab3/s18.png">
+<img src="./../assets/ca-images/module8_lab3/s13.png">
 
 # Verify the deployed Application.
   
-## 8.3.19
+## 8.3.14
 
 Open the URL in the new tab.
 
-<img src="./../assets/ca-images/module8_lab3/s19.png">
+<img src="./../assets/ca-images/module8_lab3/s14.png">
     
-## 8.3.20
+## 8.3.15
 
 Press the **Create the Travel Log** button.
 
-<img src="./../assets/ca-images/module8_lab3/s20.png">
+<img src="./../assets/ca-images/module8_lab3/s15.png">
    
-## 8.3.21
+## 8.3.16
 
 {: .note}
 > You **must get the success message, otherwise stop and debug the connectivity between your VMs**.
 
 Press **Return to Helm**.
 
-<img src="./../assets/ca-images/module8_lab3/s21.png">
+<img src="./../assets/ca-images/module8_lab3/s16.png">
     
-## 8.3.22
+## 8.3.17
 
 Press the middle button to create a record in the Log.
 
-<img src="./../assets/ca-images/module8_lab3/s22.png">
+<img src="./../assets/ca-images/module8_lab3/s17.png">
 
-## 8.3.23
+## 8.3.18
 
 You must get the success message. 
 
@@ -178,21 +148,21 @@ Press the **Log Another Travel** button a few times to create more records.
 
 Once ready - press the **Return to Helm** button. 
 
-<img src="./../assets/ca-images/module8_lab3/s23.png">
+<img src="./../assets/ca-images/module8_lab3/s18.png">
    
-## 8.3.24
+## 8.3.19
 
 Lastly we must request the data!
 
 Press **Read the Travel Log**.
 
-<img src="./../assets/ca-images/module8_lab3/s24.png">					
+<img src="./../assets/ca-images/module8_lab3/s19.png">					
 
-## 8.3.25
+## 8.3.20
 
 Your data must be printed.
 
-<img src="./../assets/ca-images/module8_lab3/s25.png">	
+<img src="./../assets/ca-images/module8_lab3/s20.png">	
   
 # Congratulations, you've completed the assignment!
 {: .no_toc}

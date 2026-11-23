@@ -32,7 +32,7 @@ parent: Module 4 - Hosts
     
 ## 4.1.1
 
-Switch to root adn using your preferred text editor, as root, edit the **/etc/one/monitord.conf** file.
+Switch to root and using your preferred text editor, as root, edit the **/etc/one/monitord.conf** file.
 
 ```console
 vi /etc/one/monitord.conf
